@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Subscription Plans – Ryaeir</title>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #050505;
+      /*background: url('bg1.jpg') no-repeat center center fixed;*/
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background-color: rgb(15, 15, 15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 25px;
+      position: relative;
+    }
+
+    .logo-small {
+      width: 50px;
+    }
+
+    .header-title {
+      flex-grow: 1;
+      text-align: center;
+    }
+
+    .header-title h1 {
+      font-size: 2em;
+      margin: 0;
+      color: #0044ff;
+    }
+
+    .header-title p {
+      margin: 5px 0 0;
+      font-size: 0.95em;
+      color: #eee;
+    }
+
+    .hamburger {
+      display: block;
+      cursor: pointer;
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      z-index: 1001;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: rgb(252, 250, 250);
+      margin: 5px 0;
+      transition: 0.4s;
+    }
+
+    .menu {
+      position: absolute;
+      top: 60px;
+      right: 25px;
+      background-color: rgb(253, 253, 253);
+      border-radius: 8px;
+      padding: 15px;
+      display: none;
+      flex-direction: column;
+      z-index: 1000;
+    }
+
+    .menu a {
+      color: #232222;
+      text-decoration: none;
+      padding: 8px 12px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .menu a:hover {
+      color: #0004ff;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .subscription-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      background-color: rgb(255, 252, 252);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgb(38, 37, 37);
+    }
+
+    .subscription-section {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 1000px;
+    }
+
+    .subscription-box {
+      background-color: #0b0b0b;
+      color: #080808;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      width: 280px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .subscription-box h2 {
+      margin-top: 0;
+      color: #2b00ff;
+    }
+
+    .subscription-box p {
+      margin: 10px 0;
+    }
+
+    .subscription-box button {
+      background-color: #1500ff;
+      border: none;
+      color: #302e2e;
+      padding: 10px 16px;
+      font-size: 1em;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .subscription-box button:hover {
+      background-color: #1700e6;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+        align-items: flex-start;
+      }
+
+      .subscription-section {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    .chatbot {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #3700ff;
+      color: #000;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 100;
+    }
+
+    @media (max-width: 768px) {
+      .subscription-wrapper {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER WITH MENU -->
+  <header>
+    <img src="Logo.jpg" alt="M Logo" class="logo-small" />
+    <div class="header-title">
+      <h1>Ryaeir</h1>
+      <p>Celebrating The Rich Sounds Of The ontinent</p>
+    </div>
+
+    <!-- Hamburger Icon -->
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <!-- Hidden Slide Menu -->
+    <nav class="menu" id="menu">
+      <a href="login.html">Sign-Up & Login</a>
+      <a href="Search4.html">Search</a>
+      <a href="AboutUs.html">About Us</a>
+      <a href="Blob.html">Blob</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="subscription-wrapper">
+    <section class="subscription-section">
+      <div class="subscription-box">
+        <h2>Freemium</h2>
+        <p><strong style="color: white;">1 Account Free</strong></p>
+        <p><strong style="color: white;">Explore Global Music.</strong></p>
+        <a href="free-trial.html">
+        <button type="button">Start Free Trial</button>
+      </a>
+      </div>
+
+      <div class="subscription-box">
+        <h2>Teams</h2>
+        <p><strong style="color: white;">$200/month</strong></p>
+        <p><strong style="color: white;">Unlimited access with team of 5.</strong></p>
+        <a href="SubscribeNow1.html">
+        <button type="button">Subscribe Now</button>
+      </a>
+      </div>
+
+      <div class="subscription-box">
+        <h2>Enterprise</h2>
+        <p><strong style="color: white;">$5000/month</strong></p>
+        <p><strong style="color: white;">Up to 100 users per Enterprive. Everyone enjoys together.</p>
+        <a href="SubscribeNow2.html">
+        <button type="button">Subscribe Now</button>
+      </a>
+      </div>
+    </section>
+  </div>
+
+
+  </section>
+
+
+</body>
+</html>
