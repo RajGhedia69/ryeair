@@ -11,11 +11,10 @@
       margin: 0;
       padding: 0;
       color: #050505;
-      /*background: url('bg1.jpg') no-repeat center center fixed;*/
       background-size: cover;
       display: flex;
       flex-direction: column;
-      height: 100vh;
+      min-height: 100vh;
     }
 
     header {
@@ -89,6 +88,119 @@
       color: #0004ff;
     }
 
+    /* ── ADVERT BANNER ── */
+    .ad-outer {
+      background-color: #0b0b0b;
+      padding: 18px 25px;
+    }
+
+    .ad-banner {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      height: 130px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #111;
+      border: 0.5px solid #2b00ff44;
+    }
+
+    .ad-slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+      gap: 24px;
+    }
+
+    .ad-slide.active { opacity: 1; }
+
+    .ad-icon {
+      font-size: 54px;
+      flex-shrink: 0;
+      opacity: 0.12;
+      color: #2b00ff;
+    }
+
+    .ad-text { flex: 1; }
+
+    .ad-tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #2b00ff;
+      margin: 0 0 5px;
+    }
+
+    .ad-headline {
+      font-size: 19px;
+      font-weight: 600;
+      color: #ffffff;
+      margin: 0 0 5px;
+      line-height: 1.3;
+    }
+
+    .ad-sub {
+      font-size: 13px;
+      color: #888;
+      margin: 0;
+    }
+
+    .ad-cta {
+      background: #1500ff;
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.1s;
+      flex-shrink: 0;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .ad-cta:hover { background: #0a00cc; transform: scale(1.03); }
+
+    .ad-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #333;
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+
+    .dot.active { background: #2b00ff; }
+
+    .ad-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: #2b00ff;
+      width: 0%;
+      transition: width 0.05s linear;
+    }
+
+    /* ── MAIN CONTENT ── */
     .main-content {
       flex: 1;
       display: flex;
@@ -151,13 +263,28 @@
 
     @media (max-width: 768px) {
       body {
-        padding: 20px;
         align-items: flex-start;
       }
 
       .subscription-section {
         flex-direction: column;
         align-items: center;
+      }
+
+      .subscription-wrapper {
+        flex-direction: column;
+      }
+
+      .ad-slide {
+        padding: 0 20px;
+      }
+
+      .ad-icon {
+        display: none;
+      }
+
+      .ad-headline {
+        font-size: 15px;
       }
     }
 
@@ -175,13 +302,10 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       z-index: 100;
     }
-
-    @media (max-width: 768px) {
-      .subscription-wrapper {
-        flex-direction: column;
-      }
-    }
   </style>
+
+  <!-- Tabler Icons for advert -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
 </head>
 
 <body>
@@ -191,17 +315,15 @@
     <img src="Logo.jpg" alt="M Logo" class="logo-small" />
     <div class="header-title">
       <h1>Ryaeir</h1>
-      <p>Celebrating The Rich Sounds Of The ontinent</p>
+      <p>Celebrating The Rich Sounds Of The Continent</p>
     </div>
 
-    <!-- Hamburger Icon -->
     <div class="hamburger" onclick="toggleMenu()">
       <div></div>
       <div></div>
       <div></div>
     </div>
 
-    <!-- Hidden Slide Menu -->
     <nav class="menu" id="menu">
       <a href="login.html">Sign-Up & Login</a>
       <a href="Search4.html">Search</a>
@@ -211,41 +333,137 @@
     </nav>
   </header>
 
-  <!-- MAIN CONTENT -->
-  <div class="subscription-wrapper">
-    <section class="subscription-section">
-      <div class="subscription-box">
-        <h2>Freemium</h2>
-        <p><strong style="color: white;">1 Account Free</strong></p>
-        <p><strong style="color: white;">Explore Global Music.</strong></p>
-        <a href="free-trial.html">
-        <button type="button">Start Free Trial</button>
-      </a>
+  <!-- ROTATING ADVERT BANNER -->
+  <div class="ad-outer">
+    <div class="ad-banner" id="adBanner" role="region" aria-label="Promotional banners">
+
+      <div class="ad-slide active" id="slide-0">
+        <i class="ti ti-music ad-icon" aria-hidden="true"></i>
+        <div class="ad-text">
+          <p class="ad-tag">Now Streaming</p>
+          <p class="ad-headline">Afrobeats, Highlife &amp; More — All in One Place</p>
+          <p class="ad-sub">Discover the richest sounds from across the continent, free.</p>
+        </div>
+        <a href="free-trial.html" class="ad-cta">Try Free</a>
       </div>
 
-      <div class="subscription-box">
-        <h2>Teams</h2>
-        <p><strong style="color: white;">$200/month</strong></p>
-        <p><strong style="color: white;">Unlimited access with team of 5.</strong></p>
-        <a href="SubscribeNow1.html">
-        <button type="button">Subscribe Now</button>
-      </a>
+      <div class="ad-slide" id="slide-1">
+        <i class="ti ti-users ad-icon" aria-hidden="true"></i>
+        <div class="ad-text">
+          <p class="ad-tag">Teams Plan</p>
+          <p class="ad-headline">Share the Experience — 5 Accounts for $200/month</p>
+          <p class="ad-sub">Unlimited access for your whole crew. One subscription.</p>
+        </div>
+        <a href="SubscribeNow1.html" class="ad-cta">Explore Teams</a>
       </div>
 
-      <div class="subscription-box">
-        <h2>Enterprise</h2>
-        <p><strong style="color: white;">$5000/month</strong></p>
-        <p><strong style="color: white;">Up to 100 users per Enterprive. Everyone enjoys together.</p>
-        <a href="SubscribeNow2.html">
-        <button type="button">Subscribe Now</button>
-      </a>
+      <div class="ad-slide" id="slide-2">
+        <i class="ti ti-building ad-icon" aria-hidden="true"></i>
+        <div class="ad-text">
+          <p class="ad-tag">Enterprise</p>
+          <p class="ad-headline">100 Users, One Unified Music Experience</p>
+          <p class="ad-sub">Built for organisations that move to the same beat.</p>
+        </div>
+        <a href="SubscribeNow2.html" class="ad-cta">Get a Quote</a>
       </div>
-    </section>
+
+      <div class="ad-slide" id="slide-3">
+        <i class="ti ti-world ad-icon" aria-hidden="true"></i>
+        <div class="ad-text">
+          <p class="ad-tag">Celebrating Culture</p>
+          <p class="ad-headline">Music That Carries the Soul of a Continent</p>
+          <p class="ad-sub">Traditional rhythms, modern fusion — every genre, every region.</p>
+        </div>
+        <a href="Search4.html" class="ad-cta">Explore Now</a>
+      </div>
+
+      <div class="ad-dots" id="adDots"></div>
+      <div class="ad-progress" id="adProgress"></div>
+    </div>
   </div>
 
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="subscription-wrapper">
+      <section class="subscription-section">
+        <div class="subscription-box">
+          <h2>Freemium</h2>
+          <p><strong style="color: white;">1 Account Free</strong></p>
+          <p><strong style="color: white;">Explore Global Music.</strong></p>
+          <a href="free-trial.html">
+            <button type="button">Start Free Trial</button>
+          </a>
+        </div>
 
-  </section>
+        <div class="subscription-box">
+          <h2>Teams</h2>
+          <p><strong style="color: white;">$200/month</strong></p>
+          <p><strong style="color: white;">Unlimited access with team of 5.</strong></p>
+          <a href="SubscribeNow1.html">
+            <button type="button">Subscribe Now</button>
+          </a>
+        </div>
 
+        <div class="subscription-box">
+          <h2>Enterprise</h2>
+          <p><strong style="color: white;">$5000/month</strong></p>
+          <p><strong style="color: white;">Up to 100 users per Enterprise. Everyone enjoys together.</strong></p>
+          <a href="SubscribeNow2.html">
+            <button type="button">Subscribe Now</button>
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      var menu = document.getElementById('menu');
+      menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    // Advert rotator
+    (function () {
+      var total = 4;
+      var duration = 4000;
+      var current = 0;
+      var startTime = null;
+
+      var dotsEl = document.getElementById('adDots');
+      for (var i = 0; i < total; i++) {
+        var d = document.createElement('div');
+        d.className = 'dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('data-index', i);
+        d.addEventListener('click', function () {
+          goTo(parseInt(this.getAttribute('data-index')));
+        });
+        dotsEl.appendChild(d);
+      }
+
+      function goTo(n) {
+        document.getElementById('slide-' + current).classList.remove('active');
+        dotsEl.children[current].classList.remove('active');
+        current = n;
+        document.getElementById('slide-' + current).classList.add('active');
+        dotsEl.children[current].classList.add('active');
+        startTime = null;
+        document.getElementById('adProgress').style.width = '0%';
+      }
+
+      function tick(ts) {
+        if (!startTime) startTime = ts;
+        var elapsed = ts - startTime;
+        var pct = Math.min((elapsed / duration) * 100, 100);
+        document.getElementById('adProgress').style.width = pct + '%';
+        if (elapsed >= duration) {
+          goTo((current + 1) % total);
+        }
+        requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    })();
+  </script>
 
 </body>
 </html>
