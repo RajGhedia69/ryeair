@@ -1,0 +1,176 @@
+
+<style>
+  .ad-banner {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    height: 130px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #0b0b0b;
+    border: 0.5px solid #2b00ff44;
+  }
+  .ad-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    gap: 24px;
+  }
+  .ad-slide.active { opacity: 1; }
+  .ad-text { flex: 1; }
+  .ad-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #2b00ff;
+    margin-bottom: 6px;
+  }
+  .ad-headline {
+    font-size: 20px;
+    font-weight: 500;
+    color: #ffffff;
+    margin: 0 0 6px;
+    line-height: 1.3;
+  }
+  .ad-sub {
+    font-size: 13px;
+    color: #888;
+    margin: 0;
+  }
+  .ad-cta {
+    background: #1500ff;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.1s;
+    flex-shrink: 0;
+  }
+  .ad-cta:hover { background: #0a00cc; transform: scale(1.03); }
+  .ad-icon {
+    font-size: 54px;
+    flex-shrink: 0;
+    opacity: 0.15;
+    color: #2b00ff;
+  }
+  .ad-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+  }
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #333;
+    transition: background 0.3s;
+  }
+  .dot.active { background: #2b00ff; }
+  .ad-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: #2b00ff;
+    width: 0%;
+    transition: width 0.05s linear;
+  }
+</style>
+
+<div class="ad-banner" role="region" aria-label="Promotional banners">
+  <div class="ad-slide active" id="slide-0">
+    <i class="ti ti-music ad-icon" aria-hidden="true"></i>
+    <div class="ad-text">
+      <p class="ad-tag">Now streaming</p>
+      <p class="ad-headline">Afrobeats, Highlife & More — All in One Place</p>
+      <p class="ad-sub">Discover the richest sounds from across the continent, free.</p>
+    </div>
+    <button class="ad-cta" onclick="sendPrompt('Tell me more about Ryaeir\'s free tier')">Try free ↗</button>
+  </div>
+
+  <div class="ad-slide" id="slide-1">
+    <i class="ti ti-users ad-icon" aria-hidden="true"></i>
+    <div class="ad-text">
+      <p class="ad-tag">Teams plan</p>
+      <p class="ad-headline">Share the Experience — 5 Accounts for $200/month</p>
+      <p class="ad-sub">Unlimited access for your whole crew. One subscription.</p>
+    </div>
+    <button class="ad-cta" onclick="sendPrompt('Tell me more about the Ryaeir Teams plan')">Explore Teams ↗</button>
+  </div>
+
+  <div class="ad-slide" id="slide-2">
+    <i class="ti ti-building ad-icon" aria-hidden="true"></i>
+    <div class="ad-text">
+      <p class="ad-tag">Enterprise</p>
+      <p class="ad-headline">100 Users, One Unified Music Experience</p>
+      <p class="ad-sub">Built for organisations that move to the same beat.</p>
+    </div>
+    <button class="ad-cta" onclick="sendPrompt('Tell me about Ryaeir Enterprise pricing')">Get a quote ↗</button>
+  </div>
+
+  <div class="ad-slide" id="slide-3">
+    <i class="ti ti-world ad-icon" aria-hidden="true"></i>
+    <div class="ad-text">
+      <p class="ad-tag">Celebrating culture</p>
+      <p class="ad-headline">Music That Carries the Soul of a Continent</p>
+      <p class="ad-sub">Traditional rhythms, modern fusion — every genre, every region.</p>
+    </div>
+    <button class="ad-cta" onclick="sendPrompt('What genres does Ryaeir offer?')">Explore now ↗</button>
+  </div>
+
+  <div class="ad-dots" id="dots"></div>
+  <div class="ad-progress" id="progress"></div>
+</div>
+
+<script>
+  const total = 4;
+  const duration = 4000;
+  let current = 0;
+  let startTime = null;
+  let rafId;
+
+  const dotsEl = document.getElementById('dots');
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.id = 'dot-' + i;
+    dotsEl.appendChild(d);
+  }
+
+  function goTo(n) {
+    document.getElementById('slide-' + current).classList.remove('active');
+    document.getElementById('dot-' + current).classList.remove('active');
+    current = n;
+    document.getElementById('slide-' + current).classList.add('active');
+    document.getElementById('dot-' + current).classList.add('active');
+    startTime = null;
+    document.getElementById('progress').style.width = '0%';
+  }
+
+  function tick(ts) {
+    if (!startTime) startTime = ts;
+    const elapsed = ts - startTime;
+    const pct = Math.min((elapsed / duration) * 100, 100);
+    document.getElementById('progress').style.width = pct + '%';
+    if (elapsed >= duration) {
+      goTo((current + 1) % total);
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+
+  rafId = requestAnimationFrame(tick);
+</script>
